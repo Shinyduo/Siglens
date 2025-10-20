@@ -1,6 +1,18 @@
-ingestListenIP: "0.0.0.0"
-queryListenIP: "0.0.0.0"
-ingestPort: 8081
-queryPort: 5122
-dataPath: "/data"
-retentionHours: 360
+IngestListenIP: "0.0.0.0"
+QueryListenIP: "0.0.0.0"
+IngestPort: 8081
+QueryPort: 5122
+
+# Correct the path to your Railway volume mount
+DataPath: "/data"
+
+# Optional but nice to set
+RetentionHours: 360
+SSInstanceName: "sigsingle"
+QueryHostname: "localhost:5122"
+IngestUrl: "http://localhost:8081"
+PProfEnabled: "true"
+PQSEnabled: "true"
+AnalyticsEnabled: "true"
+UseNewQueryPipeline: "true"
+CompressStatic: "true"
