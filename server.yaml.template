@@ -1,0 +1,17 @@
+ingestListenIP: "0.0.0.0"
+queryListenIP: "0.0.0.0"
+
+ingestPort: ${SIG_INGEST_PORT}
+queryPort: ${SIG_QUERY_PORT}
+
+dataPath: "${SIG_DATA_PATH}"
+
+retentionHours: 360
+compressStatic: true
+pqsEnabled: true
+analyticsEnabled: true
+pprofEnabled: true
+
+# optional; leave empty for now
+queryHostname: ""
+ingestUrl: ""
