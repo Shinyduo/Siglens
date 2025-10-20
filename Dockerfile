@@ -14,7 +14,11 @@ RUN mkdir -p /data /run/nginx
 # use tini to supervise both processes
 ENTRYPOINT ["/sbin/tini","--"]
 CMD ["/bin/sh","-lc", "\
-  /siglens/siglens --config /etc/siglens/server.yaml & \
+  /siglens/siglens \
+    --config /etc/siglens/server.yaml \
+    --query-port 5122 \
+    --ingest-port 8081 \
+    --data-path /data & \
   envsubst '$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
   nginx -g 'daemon off;' \
 "]
