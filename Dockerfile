@@ -1,21 +1,20 @@
 FROM siglens/siglens:1.0.57
 
-# Become root so we can install packages
+# become root to install tools
 USER root
+RUN apk add --no-cache nginx tini gettext  # gettext provides envsubst
 
-# Install nginx + tini (bash optional)
-RUN apk add --no-cache nginx tini
-
-# Configs
+# add configs (keep nginx template separate)
 COPY server.yaml /etc/siglens/server.yaml
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
-# Data dir + nginx runtime dir
-RUN mkdir -p /data /run/nginx && chown -R root:root /data /run/nginx
+# dirs
+RUN mkdir -p /data /run/nginx
 
-# Expose internal SigLens ports (informational on Railway)
-EXPOSE 5122 8081
-
-# Use tini to supervise both processes
+# use tini to supervise both processes
 ENTRYPOINT ["/sbin/tini","--"]
-CMD ["/bin/sh","-lc","siglens --config /etc/siglens/server.yaml & nginx -g 'daemon off;'"]
+CMD ["/bin/sh","-lc", "\
+  /siglens/siglens --config /etc/siglens/server.yaml & \
+  envsubst '$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
+  nginx -g 'daemon off;' \
+"]
