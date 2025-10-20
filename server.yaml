@@ -1,18 +1,18 @@
-IngestListenIP: "0.0.0.0"
-QueryListenIP: "0.0.0.0"
-IngestPort: 8081
-QueryPort: 5122
+# /etc/siglens/server.yaml
+ingestListenIP: "0.0.0.0"
+queryListenIP: "0.0.0.0"
 
-# Correct the path to your Railway volume mount
-DataPath: "/data"
+ingestPort: 8081        # internal ingest
+queryPort: 5122         # internal UI/query
 
-# Optional but nice to set
-RetentionHours: 360
-SSInstanceName: "sigsingle"
-QueryHostname: "localhost:5122"
-IngestUrl: "http://localhost:8081"
-PProfEnabled: "true"
-PQSEnabled: "true"
-AnalyticsEnabled: "true"
-UseNewQueryPipeline: "true"
-CompressStatic: "true"
+dataPath: "/data"       # must match your Railway Volume mount
+
+retentionHours: 360
+queryHostname: ""       # optional; set later to your custom domain
+ingestUrl: ""           # optional; leave blank; proxy exposes /ingest
+
+# feature flags (optional)
+pprofEnabled: true
+pqsEnabled: true
+analyticsEnabled: true
+compressStatic: true
