@@ -1,0 +1,17 @@
+# Listen on all interfaces; keep default ports
+ingestListenIP: "0.0.0.0"
+queryListenIP: "0.0.0.0"
+ingestPort: 8081
+queryPort: 5122
+
+# Optional: set your Railway domain (no scheme)
+# queryHostname: "your-app.railway.app:443"
+
+# Persist data to the mounted volume path
+dataPath: "/data"
+
+# Helpful on ephemeral platforms
+ssInstanceName: "sigsingle"
+
+# Keep defaults for the rest; tune later if needed
+retentionHours: 360
